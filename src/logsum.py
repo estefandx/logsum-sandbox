@@ -65,10 +65,8 @@ def summarise(reader):
             groups[key] = {"count": 0, "first_seen": ts, "last_seen": ts}
         g = groups[key]
         g["count"] += 1
-        if ts < g["first_seen"]:
-            g["first_seen"] = ts
-        if ts > g["last_seen"]:
-            g["last_seen"] = ts
+        g["first_seen"] = min(g["first_seen"], ts)
+        g["last_seen"] = max(g["last_seen"], ts)
 
     return warnings, groups, total_rows
 
