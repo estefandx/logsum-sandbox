@@ -1,0 +1,233 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-09T15:57:04.510Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 193911,
+      "turns": 6,
+      "files": 1,
+      "netLines": 22,
+      "toolCallsTotal": 4,
+      "toolSuccessRate": 75,
+      "totalCostUSD": 0.1547259,
+      "cacheReadCostUSD": 0.0700875,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "estimatedModels": [],
+    "localModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "bryan_moreno@epam.com",
+    "periodStart": "2026-10-09T15:51:42.298Z",
+    "periodEnd": "2026-10-09T15:54:56.209Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "42295339-a998-4f12-8ec5-b258ddf3565b",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Write CLAUDE.md at repo root. Keep it under 30 lines. Sections: - Project context: tiny CLI that summarises synthetic events.csv logs. - Conventions: code in src/, tests in tests/, data in data/. - Utilities to prefer: Python 3.11 standard library, ruff, pytest. - Escalation gates: stop before dependencies; synthetic data only; never overwrite spec.md after sign-off without asking. Report the final line count.",
+      "project": "C:\\automation\\logsum-sandbox",
+      "branch": "master",
+      "startTime": 1791561102298,
+      "durationMs": 193911,
+      "turns": 6,
+      "fileOps": 1,
+      "linesAdded": 23,
+      "linesRemoved": 1,
+      "linesModified": 0,
+      "netLines": 22,
+      "filesChanged": 1,
+      "filesWritten": 1,
+      "filesEdited": 1,
+      "toolCallsTotal": 4,
+      "toolCallsSuccess": 3,
+      "toolCallsFailure": 1,
+      "models": [
+        "claude-sonnet-4-6"
+      ],
+      "languages": [
+        "markdown"
+      ],
+      "tools": [
+        {
+          "toolName": "Write",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Bash",
+          "totalCalls": 1,
+          "successCount": 0,
+          "failureCount": 1,
+          "successRate": 0
+        },
+        {
+          "toolName": "PowerShell",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Edit",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 10,
+        "output": 726,
+        "cacheRead": 214771,
+        "cacheCreation": 12065,
+        "cacheCreation1h": 12065,
+        "total": 227572
+      },
+      "costUSD": 0.1547259,
+      "cacheReadCostUSD": 0.0700875,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-4-6",
+          "tokens": {
+            "input": 3,
+            "output": 317,
+            "cacheRead": 26231,
+            "cacheCreation": 10877,
+            "cacheCreation1h": 10877,
+            "total": 37428
+          },
+          "costUSD": 0.0778953,
+          "unpriced": false
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "tokens": {
+            "input": 7,
+            "output": 409,
+            "cacheRead": 188540,
+            "cacheCreation": 1188,
+            "cacheCreation1h": 1188,
+            "total": 190144
+          },
+          "costUSD": 0.0768306,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "agentSessionFile": "C:\\Users\\BryanMoreno\\.claude\\projects\\C--automation-logsum-sandbox\\c1e5f773-7160-41c4-9ac3-54bd633ce3e9.jsonl",
+      "costSeries": [
+        {
+          "t": 1791561117131,
+          "cost": 0.0778953,
+          "tokens": 37428
+        },
+        {
+          "t": 1791561122643,
+          "cost": 0.09419664,
+          "tokens": 75001
+        },
+        {
+          "t": 1791561140284,
+          "cost": 0.1110174,
+          "tokens": 112997
+        },
+        {
+          "t": 1791561167617,
+          "cost": 0.12460812,
+          "tokens": 151026
+        },
+        {
+          "t": 1791561294765,
+          "cost": 0.14029566,
+          "tokens": 189257
+        },
+        {
+          "t": 1791561296209,
+          "cost": 0.1547259,
+          "tokens": 227572
+        }
+      ],
+      "costSource": "native-estimate",
+      "costBasis": "standard-api-tokens",
+      "dispatchesComplete": true,
+      "rootOwnCostUSD": 0.1477413,
+      "unlinkedCostUSD": 0,
+      "unlinkedAgentIds": [],
+      "rootOwnTokens": {
+        "input": 10,
+        "output": 726,
+        "cacheRead": 214771,
+        "cacheCreation": 12065,
+        "cacheCreation1h": 12065,
+        "total": 227572
+      },
+      "unlinkedTokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "modelTimeline": [
+        {
+          "t": 1791561117131,
+          "model": "claude-sonnet-4-6",
+          "costUSD": 0.0778953,
+          "tokens": 37428
+        },
+        {
+          "t": 1791561122643,
+          "model": "claude-sonnet-4-6",
+          "costUSD": 0.01630134,
+          "tokens": 37573
+        },
+        {
+          "t": 1791561140284,
+          "model": "claude-sonnet-4-6",
+          "costUSD": 0.01682076,
+          "tokens": 37996
+        },
+        {
+          "t": 1791561167617,
+          "model": "claude-sonnet-4-6",
+          "costUSD": 0.01359072,
+          "tokens": 38029
+        },
+        {
+          "t": 1791561294765,
+          "model": "claude-sonnet-4-6",
+          "costUSD": 0.01568754,
+          "tokens": 38231
+        },
+        {
+          "t": 1791561296209,
+          "model": "claude-sonnet-4-6",
+          "costUSD": 0.01443024,
+          "tokens": 38315
+        }
+      ],
+      "routedTurnsPct": 0,
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}
