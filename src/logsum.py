@@ -75,6 +75,27 @@ def summarise(reader):
     return warnings, groups, total_rows
 
 
+def _write_summary(writer, groups, total_rows, warnings):
+    """Emit warnings, write the CSV, return the exit code."""
+    for w in warnings:
+        print(w, file=sys.stderr)
+    writer.writeheader()
+    if total_rows == 0:
+        print("NOTE: input was empty", file=sys.stderr)
+        return 0
+    if not groups:
+        return 1
+    for (level, service), g in sorted(groups.items()):
+        writer.writerow({
+            "level": level,
+            "service": service,
+            "count": g["count"],
+            "first_seen": g["first_seen_raw"],
+            "last_seen":  g["last_seen_raw"],
+        })
+    return 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="logsum",
@@ -97,30 +118,11 @@ def main(argv=None):
 
     in_fh = _open_input(input_path)
     out_fh = _open_output(output_path)
-    exit_code = 0
     try:
         reader = csv.DictReader(in_fh)
         warnings, groups, total_rows = summarise(reader)
-
-        for w in warnings:
-            print(w, file=sys.stderr)
-
         writer = csv.DictWriter(out_fh, fieldnames=OUTPUT_COLS)
-        writer.writeheader()
-
-        if total_rows == 0:
-            print("NOTE: input was empty", file=sys.stderr)
-        elif not groups:
-            exit_code = 1
-        else:
-            for (level, service), g in sorted(groups.items()):
-                writer.writerow({
-                    "level": level,
-                    "service": service,
-                    "count": g["count"],
-                    "first_seen": g["first_seen_raw"],
-                    "last_seen":  g["last_seen_raw"],
-                })
+        exit_code = _write_summary(writer, groups, total_rows, warnings)
     finally:
         if input_path:
             in_fh.close()
