@@ -35,6 +35,7 @@ def run(*args, stdin_text: str | None = None):
         text=True,
         encoding="utf-8",
         cwd=str(PROJ_ROOT),
+        check=False,
     )
 
 
