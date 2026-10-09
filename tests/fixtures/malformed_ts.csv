@@ -1,0 +1,3 @@
+timestamp,level,service,message
+not-a-timestamp,ERROR,auth,Bad row — skipped
+2026-01-01T10:05:00,ERROR,auth,Good row — kept

@@ -1,0 +1,3 @@
+timestamp,level,service,message
+2026-01-01T10:00:00,,auth,Empty level field
+2026-01-01T10:05:00,   ,auth,Whitespace-only level field

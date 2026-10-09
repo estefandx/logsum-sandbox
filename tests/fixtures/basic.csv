@@ -1,0 +1,4 @@
+timestamp,level,service,message
+2026-01-01T10:00:00,ERROR,auth,Login failed
+2026-01-01T10:05:00,ERROR,auth,Token expired
+2026-01-01T11:00:00,INFO,api,Request received

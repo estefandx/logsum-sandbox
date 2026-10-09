@@ -1,0 +1,3 @@
+timestamp,level,service,message
+not-a-timestamp,ERROR,auth,Bad row one
+also-bad,INFO,api,Bad row two

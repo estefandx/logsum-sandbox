@@ -1,0 +1,4 @@
+timestamp,level,service,message
+2026-01-01T10:00:00,error,auth,Login failed
+2026-01-01T10:05:00, warn ,api,Something
+2026-01-01T11:00:00,ERROR,auth,Already uppercase
