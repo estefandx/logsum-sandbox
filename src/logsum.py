@@ -62,11 +62,15 @@ def summarise(reader):
         level, service = _normalise(row)
         key = (level, service)
         if key not in groups:
-            groups[key] = {"count": 0, "first_seen": ts, "last_seen": ts}
+            groups[key] = {"count": 0,
+                           "first_seen": ts, "first_seen_raw": ts_raw,
+                           "last_seen":  ts, "last_seen_raw":  ts_raw}
         g = groups[key]
         g["count"] += 1
-        g["first_seen"] = min(g["first_seen"], ts)
-        g["last_seen"] = max(g["last_seen"], ts)
+        if ts < g["first_seen"]:
+            g["first_seen"], g["first_seen_raw"] = ts, ts_raw
+        if ts > g["last_seen"]:
+            g["last_seen"], g["last_seen_raw"] = ts, ts_raw
 
     return warnings, groups, total_rows
 
@@ -114,8 +118,8 @@ def main(argv=None):
                     "level": level,
                     "service": service,
                     "count": g["count"],
-                    "first_seen": g["first_seen"].isoformat(),
-                    "last_seen": g["last_seen"].isoformat(),
+                    "first_seen": g["first_seen_raw"],
+                    "last_seen":  g["last_seen_raw"],
                 })
     finally:
         if input_path:
