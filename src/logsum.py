@@ -75,7 +75,7 @@ def summarise(reader):
     return warnings, groups, total_rows
 
 
-def _write_summary(writer, groups, total_rows, warnings):
+def _write_summary(writer, groups, total_rows, warnings, min_count=None):
     """Emit warnings, write the CSV, return the exit code."""
     for w in warnings:
         print(w, file=sys.stderr)
@@ -85,6 +85,8 @@ def _write_summary(writer, groups, total_rows, warnings):
         return 0
     if not groups:
         return 1
+    if min_count is not None:
+        groups = {k: v for k, v in groups.items() if v["count"] >= min_count}
     for (level, service), g in sorted(groups.items()):
         writer.writerow({
             "level": level,
@@ -111,6 +113,8 @@ def main(argv=None):
     )
     parser.add_argument("-i", "--input", dest="input_named", metavar="PATH")
     parser.add_argument("-o", "--output", dest="output_named", metavar="PATH")
+    parser.add_argument("-n", "--min-count", type=int, default=None, metavar="N",
+                        help="Omit groups whose count is below N")
 
     args = parser.parse_args(argv)
     input_path = args.input_named or args.input_pos
@@ -122,7 +126,8 @@ def main(argv=None):
         reader = csv.DictReader(in_fh)
         warnings, groups, total_rows = summarise(reader)
         writer = csv.DictWriter(out_fh, fieldnames=OUTPUT_COLS)
-        exit_code = _write_summary(writer, groups, total_rows, warnings)
+        exit_code = _write_summary(writer, groups, total_rows, warnings,
+                                   min_count=args.min_count)
     finally:
         if input_path:
             in_fh.close()

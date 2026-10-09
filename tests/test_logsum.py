@@ -456,3 +456,53 @@ class TestCLIFlags:
         deep_missing = tmp_path / "no_such_dir" / "summary.csv"
         result = run("-i", str(p), "-o", str(deep_missing))
         assert result.returncode == 1
+
+
+# ===========================================================================
+# §7  --min-count flag
+# ===========================================================================
+
+class TestMinCount:
+    def test_below_threshold_excluded(self, write_input, out):
+        # BASIC: (ERROR, auth) count=2, (INFO, api) count=1
+        p = write_input(BASIC)
+        run("-i", str(p), "-o", str(out), "--min-count", "2")
+        rows = parse_csv(out.read_text())
+        assert not any(r["service"] == "api" for r in rows)
+
+    def test_at_threshold_included(self, write_input, out):
+        p = write_input(BASIC)
+        run("-i", str(p), "-o", str(out), "--min-count", "2")
+        rows = parse_csv(out.read_text())
+        assert any(r["level"] == "ERROR" and r["service"] == "auth" for r in rows)
+
+    def test_above_threshold_included(self, write_input, out):
+        p = write_input(BASIC)
+        run("-i", str(p), "-o", str(out), "--min-count", "1")
+        rows = parse_csv(out.read_text())
+        assert any(r["level"] == "ERROR" and r["service"] == "auth" for r in rows)
+
+    def test_default_includes_all_groups(self, write_input, out):
+        p = write_input(BASIC)
+        run("-i", str(p), "-o", str(out))
+        rows = parse_csv(out.read_text())
+        assert len(rows) == 2
+
+    def test_zero_includes_all_groups(self, write_input, out):
+        p = write_input(BASIC)
+        run("-i", str(p), "-o", str(out), "--min-count", "0")
+        rows = parse_csv(out.read_text())
+        assert len(rows) == 2
+
+    def test_all_filtered_header_only_exit_0(self, write_input, out):
+        p = write_input(BASIC)
+        result = run("-i", str(p), "-o", str(out), "--min-count", "99")
+        assert result.returncode == 0
+        non_blank = [ln for ln in out.read_text().splitlines() if ln]
+        assert len(non_blank) == 1
+        assert non_blank[0] == "level,service,count,first_seen,last_seen"
+
+    def test_non_integer_exits_2(self, write_input):
+        p = write_input(BASIC)
+        result = run("-i", str(p), "--min-count", "foo")
+        assert result.returncode == 2

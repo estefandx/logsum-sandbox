@@ -79,6 +79,7 @@ Exit code is `0`.
 |---|---|---|---|
 | `--input PATH` | `-i` | stdin | Path to the input `events.csv` |
 | `--output PATH` | `-o` | stdout | Path to the output `summary.csv` |
+| `--min-count N` | `-n` | *(unset)* | Omit groups whose count is below N |
 
 ### Exit codes
 
@@ -87,6 +88,8 @@ Exit code is `0`.
 | `0` | Success (including empty-input case) |
 | `1` | I/O or data error — unreadable input, unwritable output, or all rows skipped |
 | `2` | Bad arguments — unknown flag, missing required value |
+
+When `--min-count` filters all groups to empty, the output is header-only and exit is `0` (intentional filter, not an error).
 
 ## 8. Out of scope
 
